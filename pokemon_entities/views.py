@@ -68,7 +68,7 @@ def show_pokemon(request, pokemon_id):
         "title_ru": bd_pokemon.title,
         "title_en": "",
         "title_jp": "",
-        "description": "",
+        "description": bd_pokemon.description,
         "img_url": request.build_absolute_uri(bd_pokemon.image.url),
         "next_evolution": {},
         "previous_evolution": {},
