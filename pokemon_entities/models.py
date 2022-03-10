@@ -1,7 +1,5 @@
 from django.db import models  # noqa F401
 
-# your models here
-
 
 class Pokemon(models.Model):
     title = models.CharField(max_length=200)
@@ -9,3 +7,8 @@ class Pokemon(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class PokemonEntity(models.Model):
+    latitude = models.FloatField(name="Lat")
+    longitude = models.FloatField(name="Lon")
