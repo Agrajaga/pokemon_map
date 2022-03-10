@@ -68,15 +68,16 @@ def show_pokemon(request, pokemon_id):
         "description": bd_pokemon.description,
         "img_url": request.build_absolute_uri(bd_pokemon.image.url),
     }
-    if bd_pokemon.next_evolution is not None:
-        evolution_pokemon = bd_pokemon.next_evolution
+    evolution_pokemon = bd_pokemon.next_evolution
+    if evolution_pokemon is not None:
         pokemon['next_evolution'] = {
             'pokemon_id': evolution_pokemon.id,
             'title_ru': evolution_pokemon.title_ru,
             'img_url': request.build_absolute_uri(evolution_pokemon.image.url),
         }
-    if bd_pokemon.previous_evolution is not None:
-        evolution_pokemon = bd_pokemon.previous_evolution
+
+    if bd_pokemon.previous_evolution.count():
+        evolution_pokemon = bd_pokemon.previous_evolution.get()
         pokemon['previous_evolution'] = {
             'pokemon_id': evolution_pokemon.id,
             'title_ru': evolution_pokemon.title_ru,
