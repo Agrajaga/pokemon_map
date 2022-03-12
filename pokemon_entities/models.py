@@ -5,13 +5,12 @@ class Pokemon(models.Model):
     """Виды покемонов"""
     title_ru = models.CharField(max_length=200, verbose_name="название")
     title_en = models.CharField(
-        max_length=200, default="", verbose_name="английское название", blank=True)
+        max_length=200, verbose_name="английское название", blank=True)
     title_jp = models.CharField(
-        max_length=200, default="", verbose_name="японское название", blank=True)
+        max_length=200, verbose_name="японское название", blank=True)
     image = models.ImageField(null=True, blank=True,
                               verbose_name="изображение")
-    description = models.TextField(
-        default="", blank=True, verbose_name="описание")
+    description = models.TextField(blank=True, verbose_name="описание")
     next_evolution = models.ForeignKey(
         "self",
         on_delete=models.SET_NULL,
