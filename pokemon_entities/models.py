@@ -26,13 +26,17 @@ class Pokemon(models.Model):
 class PokemonEntity(models.Model):
     """Сущности покемонов на карте"""
     pokemon = models.ForeignKey(
-        Pokemon, on_delete=models.CASCADE, verbose_name="покемон")
+        Pokemon, on_delete=models.CASCADE, verbose_name="покемон", related_name="entities")
     latitude = models.FloatField(verbose_name="широта")
     longitude = models.FloatField(verbose_name="долгота")
-    appeared_at = models.DateTimeField(verbose_name="когда появится", default=None, blank=True)
-    disappeared_at = models.DateTimeField(verbose_name="когда исчезнет", default=None, blank=True)
+    appeared_at = models.DateTimeField(
+        verbose_name="когда появится", default=None, blank=True)
+    disappeared_at = models.DateTimeField(
+        verbose_name="когда исчезнет", default=None, blank=True)
     level = models.IntegerField(verbose_name="уровень", null=True, blank=True)
-    health = models.IntegerField(verbose_name="здоровье", null=True, blank=True)
+    health = models.IntegerField(
+        verbose_name="здоровье", null=True, blank=True)
     strength = models.IntegerField(verbose_name="атака", null=True, blank=True)
     defence = models.IntegerField(verbose_name="защита", null=True, blank=True)
-    stamina = models.IntegerField(verbose_name="выносливость", null=True, blank=True)
+    stamina = models.IntegerField(
+        verbose_name="выносливость", null=True, blank=True)
