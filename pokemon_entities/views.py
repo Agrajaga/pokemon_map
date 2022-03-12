@@ -57,18 +57,18 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     try:
-        bd_pokemon = Pokemon.objects.get(pk=pokemon_id)
+        db_pokemon = Pokemon.objects.get(pk=pokemon_id)
     except Pokemon.DoesNotExist:
         return HttpResponseNotFound("<h1>Такой покемон не найден</h1>")
 
     pokemon = {
-        "title_ru": bd_pokemon.title_ru,
-        "title_en": bd_pokemon.title_en,
-        "title_jp": bd_pokemon.title_jp,
-        "description": bd_pokemon.description,
-        "img_url": request.build_absolute_uri(bd_pokemon.image.url),
+        "title_ru": db_pokemon.title_ru,
+        "title_en": db_pokemon.title_en,
+        "title_jp": db_pokemon.title_jp,
+        "description": db_pokemon.description,
+        "img_url": request.build_absolute_uri(db_pokemon.image.url),
     }
-    evolution_pokemon = bd_pokemon.next_evolution
+    evolution_pokemon = db_pokemon.next_evolution
     if evolution_pokemon is not None:
         pokemon["next_evolution"] = {
             "pokemon_id": evolution_pokemon.id,
@@ -76,8 +76,8 @@ def show_pokemon(request, pokemon_id):
             "img_url": request.build_absolute_uri(evolution_pokemon.image.url),
         }
 
-    if bd_pokemon.previous_evolution.count():
-        evolution_pokemon = bd_pokemon.previous_evolution.get()
+    if db_pokemon.previous_evolution.count():
+        evolution_pokemon = db_pokemon.previous_evolution.get()
         pokemon["previous_evolution"] = {
             "pokemon_id": evolution_pokemon.id,
             "title_ru": evolution_pokemon.title_ru,
@@ -86,7 +86,7 @@ def show_pokemon(request, pokemon_id):
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
 
-    requested_entites = bd_pokemon.entities.all()
+    requested_entites = db_pokemon.entities.all()
     for pokemon_entity in requested_entites:
         add_pokemon(
             folium_map, pokemon_entity.latitude,
